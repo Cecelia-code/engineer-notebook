@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title><![CDATA[Signal Stack]]></title>
+    <link>https://example.com</link>
+    <description><![CDATA[记录技术笔记、工作流、踩坑与复盘的个人博客。]]></description>
+    <language>zh-CN</language>
+    
+  <item>
+    <title><![CDATA[把个人博客搭成长期知识库]]></title>
+    <link>https://example.com/posts/2026-04-28-hello-signal-stack/</link>
+    <guid>https://example.com/posts/2026-04-28-hello-signal-stack/</guid>
+    <pubDate>Tue, 28 Apr 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[第一篇文章可以先说明这个博客的用途、内容边界，以及未来准备怎么持续维护。]]></description>
+  </item>
+
+  <item>
+    <title><![CDATA[React 笔记：什么时候该把状态往上提]]></title>
+    <link>https://example.com/posts/2026-04-27-react-notes-on-state/</link>
+    <guid>https://example.com/posts/2026-04-27-react-notes-on-state/</guid>
+    <pubDate>Mon, 27 Apr 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[不是所有状态都值得全局化。先判断共享范围，再判断更新频率，很多问题会简单不少。]]></description>
+  </item>
+
+  <item>
+    <title><![CDATA[命令行工作流：把高频动作做成稳定习惯]]></title>
+    <link>https://example.com/posts/2026-04-25-cli-workflow/</link>
+    <guid>https://example.com/posts/2026-04-25-cli-workflow/</guid>
+    <pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[真正省时间的不是某一条神奇命令，而是能不能把重复动作固化成可预测的工作流。]]></description>
+  </item>
+  </channel>
+</rss>

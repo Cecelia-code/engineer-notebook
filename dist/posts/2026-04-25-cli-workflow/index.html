@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>命令行工作流：把高频动作做成稳定习惯 | Signal Stack</title>
+    <meta name="description" content="真正省时间的不是某一条神奇命令，而是能不能把重复动作固化成可预测的工作流。" />
+    <meta name="theme-color" content="#0c1b2a" />
+    <meta name="generator" content="Signal Stack Static Builder" />
+    
+    <meta property="og:title" content="命令行工作流：把高频动作做成稳定习惯 | Signal Stack" />
+    <meta property="og:description" content="真正省时间的不是某一条神奇命令，而是能不能把重复动作固化成可预测的工作流。" />
+    <meta property="og:type" content="website" />
+    
+    <link rel="alternate" type="application/rss+xml" title="Signal Stack" href="../../feed.xml" />
+    <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <link rel="stylesheet" href="../../assets/style.css" />
+  </head>
+  <body class="post-page">
+    <div class="site-bg"></div>
+    <header class="site-header">
+      <div class="shell">
+        <a class="brand" href="../../index.html">
+          <span class="brand__mark">S</span>
+          <span>
+            <strong>Signal Stack</strong>
+            <small>Tech notes and working drafts</small>
+          </span>
+        </a>
+        <nav class="nav">
+          <a href="../../index.html">首页</a>
+          <a href="../../tags/">标签</a>
+          <a href="../../archive/">归档</a>
+          <a href="../../feed.xml">RSS</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="shell article-shell">
+        <article class="article">
+          <div class="article__header">
+            <a class="back-link" href="../../archive/">← 返回归档</a>
+            <span class="eyebrow">Post</span>
+            <h1>命令行工作流：把高频动作做成稳定习惯</h1>
+            <p>真正省时间的不是某一条神奇命令，而是能不能把重复动作固化成可预测的工作流。</p>
+            <div class="article__meta">
+              <time datetime="2026-04-25">2026年4月25日</time>
+              <span>1 分钟阅读</span>
+            </div>
+            <div class="chip-row">
+              <a class="chip" href="../../tags/cli/">CLI</a><a class="chip" href="../../tags/效率/">效率</a><a class="chip" href="../../tags/工作流/">工作流</a>
+            </div>
+          </div>
+          <div class="article__content markdown-body">
+            <h1 id="我常用的命令行习惯">我常用的命令行习惯</h1><p>很多效率提升不是来自更复杂的工具，而是来自更稳定的路径。</p>
+<h2 id="先从搜索开始">先从搜索开始</h2><p><code>rg</code> 很适合做代码搜索和笔记搜索，因为它足够快，结果也清楚。</p>
+<pre><code class="language-bash">rg &quot;useEffect&quot; src
+rg &quot;TODO|FIXME&quot; .
+rg --files content
+</code></pre>
+<h2 id="把重复动作收口">把重复动作收口</h2><p>如果一件事你三天内做了三次，就值得考虑变成脚本：</p>
+<ul>
+<li>本地预览</li>
+<li>生成静态文件</li>
+<li>批量整理目录</li>
+<li>启动调试环境</li>
+</ul>
+<h2 id="记录-为什么这样做">记录“为什么这样做”</h2><p>光记命令本身意义不大。<br>更有价值的是写明：</p>
+<ul>
+<li>这个命令解决什么问题</li>
+<li>适合在哪个场景使用</li>
+<li>有没有风险或副作用</li>
+</ul>
+<h2 id="一个适合博客长期维护的做法">一个适合博客长期维护的做法</h2><p>把博客写作也纳入工作流：</p>
+<ol>
+<li>新建一个 Markdown 文件。</li>
+<li>写标题、摘要、标签和日期。</li>
+<li>本地构建预览。</li>
+<li>调整格式后再发布。</li>
+</ol>
+<p>这样内容的产出成本会低很多，也更容易坚持。</p>
+
+          </div>
+          <nav class="article-pager">
+            <span class="article-pager__empty"></span>
+            <a href="../../posts/2026-04-27-react-notes-on-state/"><small>下一篇</small><strong>React 笔记：什么时候该把状态往上提</strong></a>
+          </nav>
+        </article>
+        <aside class="article-aside">
+          <div class="aside-card">
+            <span class="eyebrow">On This Page</span>
+            <ul class="toc">
+              
+                          <li class="toc__item toc__item--1">
+                            <a href="#我常用的命令行习惯">我常用的命令行习惯</a>
+                          </li>
+                        
+                          <li class="toc__item toc__item--2">
+                            <a href="#先从搜索开始">先从搜索开始</a>
+                          </li>
+                        
+                          <li class="toc__item toc__item--2">
+                            <a href="#把重复动作收口">把重复动作收口</a>
+                          </li>
+                        
+                          <li class="toc__item toc__item--2">
+                            <a href="#记录-为什么这样做">记录“为什么这样做”</a>
+                          </li>
+                        
+                          <li class="toc__item toc__item--2">
+                            <a href="#一个适合博客长期维护的做法">一个适合博客长期维护的做法</a>
+                          </li>
+                        
+            </ul>
+          </div>
+        </aside>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="shell site-footer__inner">
+        <div>
+          <strong>Signal Stack</strong>
+          <p>记录技术笔记、工作流、踩坑与复盘的个人博客。</p>
+        </div>
+        <div>
+          <p>作者：你的名字</p>
+          <p><a href="mailto:you@example.com">you@example.com</a></p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", function (user) {
+          if (!user) {
+            window.netlifyIdentity.on("login", function () {
+              document.location.href = "../../admin/";
+            });
+          }
+        });
+      }
+    </script>
+    <script type="module" src="../../assets/app.js"></script>
+  </body>
+</html>

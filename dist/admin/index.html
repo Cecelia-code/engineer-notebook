@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Signal Stack CMS</title>
+    <style>
+      body {
+        margin: 0;
+        background: #0c1b2a;
+        color: #eff7f5;
+        font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+      }
+
+      .cms-loading {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        text-align: center;
+      }
+
+      .cms-loading h1 {
+        margin: 0 0 12px;
+        font-size: 1.8rem;
+      }
+
+      .cms-loading p {
+        margin: 0;
+        max-width: 42rem;
+        line-height: 1.7;
+        color: rgba(239, 247, 245, 0.74);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cms-loading">
+      <div>
+        <h1>Signal Stack CMS</h1>
+        <p>
+          后台正在加载。如果这是你第一次配置，请先把
+          <code>/admin/config.yml</code> 里的仓库地址和认证方式改好。
+        </p>
+      </div>
+    </div>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  </body>
+</html>

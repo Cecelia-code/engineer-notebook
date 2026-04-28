@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>归档 | Signal Stack</title>
+    <meta name="description" content="按时间浏览 Signal Stack 的全部文章" />
+    <meta name="theme-color" content="#0c1b2a" />
+    <meta name="generator" content="Signal Stack Static Builder" />
+    
+    <meta property="og:title" content="归档 | Signal Stack" />
+    <meta property="og:description" content="按时间浏览 Signal Stack 的全部文章" />
+    <meta property="og:type" content="website" />
+    
+    <link rel="alternate" type="application/rss+xml" title="Signal Stack" href="../feed.xml" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <link rel="stylesheet" href="../assets/style.css" />
+  </head>
+  <body class="">
+    <div class="site-bg"></div>
+    <header class="site-header">
+      <div class="shell">
+        <a class="brand" href="../index.html">
+          <span class="brand__mark">S</span>
+          <span>
+            <strong>Signal Stack</strong>
+            <small>Tech notes and working drafts</small>
+          </span>
+        </a>
+        <nav class="nav">
+          <a href="../index.html">首页</a>
+          <a href="../tags/">标签</a>
+          <a href="../archive/">归档</a>
+          <a href="../feed.xml">RSS</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="shell page-head">
+        <span class="eyebrow">Archive</span>
+        <h1>全部归档</h1>
+        <p>按年份回看文章和笔记，适合整理成长线项目的演进记录。</p>
+      </section>
+      <section class="shell section">
+        <div class="archive-list">
+          
+                <section class="archive-group">
+                  <div class="archive-group__year">2026</div>
+                  <div class="archive-group__items">
+                    
+                          <article class="archive-item">
+                            <time datetime="2026-04-28">2026年4月28日</time>
+                            <div>
+                              <h2><a href="../posts/2026-04-28-hello-signal-stack/">把个人博客搭成长期知识库</a></h2>
+                              <p>第一篇文章可以先说明这个博客的用途、内容边界，以及未来准备怎么持续维护。</p>
+                            </div>
+                          </article>
+                        
+                          <article class="archive-item">
+                            <time datetime="2026-04-27">2026年4月27日</time>
+                            <div>
+                              <h2><a href="../posts/2026-04-27-react-notes-on-state/">React 笔记：什么时候该把状态往上提</a></h2>
+                              <p>不是所有状态都值得全局化。先判断共享范围，再判断更新频率，很多问题会简单不少。</p>
+                            </div>
+                          </article>
+                        
+                          <article class="archive-item">
+                            <time datetime="2026-04-25">2026年4月25日</time>
+                            <div>
+                              <h2><a href="../posts/2026-04-25-cli-workflow/">命令行工作流：把高频动作做成稳定习惯</a></h2>
+                              <p>真正省时间的不是某一条神奇命令，而是能不能把重复动作固化成可预测的工作流。</p>
+                            </div>
+                          </article>
+                        
+                  </div>
+                </section>
+              
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="shell site-footer__inner">
+        <div>
+          <strong>Signal Stack</strong>
+          <p>记录技术笔记、工作流、踩坑与复盘的个人博客。</p>
+        </div>
+        <div>
+          <p>作者：你的名字</p>
+          <p><a href="mailto:you@example.com">you@example.com</a></p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", function (user) {
+          if (!user) {
+            window.netlifyIdentity.on("login", function () {
+              document.location.href = "../admin/";
+            });
+          }
+        });
+      }
+    </script>
+    <script type="module" src="../assets/app.js"></script>
+  </body>
+</html>
