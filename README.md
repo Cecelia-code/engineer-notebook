@@ -35,53 +35,36 @@ dist/              构建产物
 - `public/admin/index.html`
 - `public/admin/config.yml`
 - `public/admin/config.git-gateway.example.yml`
+- `netlify.toml`
 
 ### 你需要先改的内容
 
 先把 `public/admin/config.yml` 里的这些值换成你自己的：
 
 ```yml
-backend:
-  repo: your-github-name/your-repo-name
-
 site_url: https://your-site.example.com
 display_url: https://your-site.example.com
 ```
 
 ### 认证方案
 
-这个项目我默认帮你接成了 `GitHub backend`，适合部署在 GitHub Pages 或 Vercel。
+这个项目现在已经切成 `Netlify Identity + Git Gateway` 路线，方便做在线编辑。
 
-但这里有个关键点：Decap CMS 连接 GitHub 时，**还需要一个认证服务**。  
-也就是说，现在代码结构已经接好了，但你上线前还要把认证补上，后台才能真正登录写文章。
+你后面在 Netlify 只要完成这些动作：
 
-你有两条路：
+1. 导入 GitHub 仓库 `Cecelia-code/engineer-notebook`
+2. 构建命令用 `npm run build`
+3. 发布目录用 `dist`
+4. 打开 `Identity`
+5. 打开 `Git Gateway`
 
-#### 方案 A：GitHub backend + OAuth Proxy
-
-适合 GitHub Pages / Vercel。
-
-你需要：
-
-1. 准备 GitHub OAuth App。
-2. 部署一个 OAuth Proxy。
-3. 把 `public/admin/config.yml` 里的这两项补上：
+现在 `public/admin/config.yml` 已经是：
 
 ```yml
 backend:
-  base_url: https://cms-auth.your-domain.com
-  auth_endpoint: auth
+  name: git-gateway
+  branch: main
 ```
-
-#### 方案 B：Netlify Identity + Git Gateway
-
-如果你不想自己搭 OAuth Proxy，可以让 Netlify 只负责认证，博客本体仍然放 GitHub Pages 或 Vercel。
-
-步骤是：
-
-1. 在 Netlify 开一个站点并启用 Identity。
-2. 启用 Git Gateway。
-3. 把 `public/admin/config.git-gateway.example.yml` 的内容覆盖到 `public/admin/config.yml`。
 
 ## 网页里能改什么
 
@@ -137,6 +120,16 @@ powershell -ExecutionPolicy Bypass -File .\dev.ps1
 构建结果会输出到 `dist/`。
 
 如果后台已经配好，部署后访问 `/admin/` 就能直接在网页里写文章。
+
+## Netlify 部署
+
+这个项目已经带了 `netlify.toml`，所以在 Netlify 导入仓库时，默认会读取：
+
+```toml
+[build]
+command = "npm run build"
+publish = "dist"
+```
 
 PowerShell 版本同样可用：
 

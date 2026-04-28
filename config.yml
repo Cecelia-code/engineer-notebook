@@ -1,0 +1,60 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: public/uploads
+public_folder: /uploads
+
+site_url: https://your-site.example.com
+display_url: https://your-site.example.com
+logo_url: /assets/favicon.svg
+locale: zh_Hans
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+editor:
+  preview: true
+
+collections:
+  - name: posts
+    label: 文章
+    label_singular: 文章
+    folder: content/posts
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} | {{date}}"
+    fields:
+      - label: 标题
+        name: title
+        widget: string
+      - label: 日期
+        name: date
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: YYYY-MM-DD
+        time_format: false
+      - label: 摘要
+        name: summary
+        widget: text
+      - label: 标签
+        name: tags
+        widget: list
+        allow_add: true
+      - label: 推荐文章
+        name: featured
+        widget: boolean
+        required: false
+        default: false
+      - label: 草稿
+        name: draft
+        widget: boolean
+        required: false
+        default: false
+      - label: 正文
+        name: body
+        widget: markdown
