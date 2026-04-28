@@ -1,0 +1,11 @@
+{
+  "title": "Signal Stack",
+  "description": "记录技术笔记、工作流、踩坑与复盘的个人博客。",
+  "author": "你的名字",
+  "email": "you@example.com",
+  "siteUrl": "https://example.com",
+  "language": "zh-CN",
+  "heroTitle": "技术流博客，用来写明白每一次思考。",
+  "heroIntro": "这里适合持续整理前端、后端、工程化、效率工具和日常踩坑笔记。把零散经验沉淀成能复用的知识资产。",
+  "now": "最近在整理博客系统、前端工程化笔记和命令行工作流。"
+}

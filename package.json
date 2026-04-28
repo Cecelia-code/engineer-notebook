@@ -1,0 +1,14 @@
+{
+  "name": "signal-stack-blog",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A markdown-driven personal tech blog and notes site.",
+  "scripts": {
+    "build": "node ./scripts/build.mjs",
+    "dev": "node ./scripts/dev.mjs"
+  },
+  "dependencies": {
+    "marked": "^16.0.0"
+  }
+}
