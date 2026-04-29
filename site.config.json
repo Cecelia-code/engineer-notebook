@@ -1,11 +1,12 @@
 {
-  "title": "Signal Stack",
-  "description": "记录技术笔记、工作流、踩坑与复盘的个人博客。",
-  "author": "你的名字",
-  "email": "you@example.com",
-  "siteUrl": "https://example.com",
+  "title": "Cecelia 的技术笔记",
+  "description": "一个记录前端工程、自动化流程、学习复盘和个人方法论的技术博客。",
+  "author": "Cecelia",
+  "email": "hello@cecelia-notes.dev",
+  "siteUrl": "https://kaleidoscopic-narwhal-83d5a2.netlify.app",
   "language": "zh-CN",
-  "heroTitle": "技术流博客，用来写明白每一次思考。",
-  "heroIntro": "这里适合持续整理前端、后端、工程化、效率工具和日常踩坑笔记。把零散经验沉淀成能复用的知识资产。",
-  "now": "最近在整理博客系统、前端工程化笔记和命令行工作流。"
+  "heroTitle": "记录技术、复盘与灵感",
+  "heroIntro": "这里整理前端工程、自动化流程和日常学习笔记。少一点堆砌，多一点清楚好读的沉淀。",
+  "now": "最近在整理个人技术写作系统，也在持续记录前端、工具链和效率工作流。",
+  "tagline": "技术、复盘、写作和日常积累"
 }

@@ -12,16 +12,17 @@ const PUBLIC_DIR = path.join(ROOT_DIR, "public");
 export const DIST_DIR = path.join(ROOT_DIR, "dist");
 
 const DEFAULT_CONFIG = {
-  title: "Signal Stack",
-  description: "记录技术笔记、工作流、踩坑与复盘的个人博客。",
-  author: "你的名字",
-  email: "you@example.com",
+  title: "Cecelia Engineer Notebook",
+  description: "一个偏长期主义的个人技术博客，写工程经验、架构思考、工作流和高质量技术笔记。",
+  author: "Cecelia",
+  email: "hello@cecelia-notes.dev",
   siteUrl: "https://example.com",
   language: "zh-CN",
-  heroTitle: "技术流博客，用来写明白每一次思考。",
+  heroTitle: "把技术经验写成作品，而不是堆成碎片。",
   heroIntro:
-    "这里适合持续整理前端、后端、工程化、效率工具和日常踩坑笔记。把零散经验沉淀成能复用的知识资产。",
-  now: "最近在整理博客系统、前端工程化笔记和命令行工作流。"
+    "这里记录前端工程、系统设计、自动化工作流和个人方法论。目标不是刷存在感，而是把每一次思考都沉淀成能复用的结构。",
+  now: "最近在搭建个人技术写作系统、改进文章编排体验，并持续整理前端和工程化笔记。",
+  tagline: "Essays, systems, notes, and calm engineering."
 };
 
 const require = createRequire(import.meta.url);
@@ -41,9 +42,9 @@ function resolveMarkedEntry() {
 
   try {
     return require.resolve("marked", { paths: lookupPaths });
-  } catch (error) {
+  } catch {
     throw new Error(
-      "无法解析 marked 依赖。请先执行 npm install，或使用 build.ps1 / dev.ps1 调用内置运行时。"
+      "Unable to resolve the marked package. Run npm install locally or use build.cmd with the bundled runtime."
     );
   }
 }
@@ -218,9 +219,9 @@ function formatMachineDate(value) {
 }
 
 function sortByDateDescending(posts) {
-  return [...posts].sort((left, right) => {
-    return new Date(right.date).getTime() - new Date(left.date).getTime();
-  });
+  return [...posts].sort(
+    (left, right) => new Date(right.date).getTime() - new Date(left.date).getTime()
+  );
 }
 
 function uniqueTags(posts) {
@@ -232,12 +233,19 @@ function uniqueTags(posts) {
   }
 
   return [...countMap.entries()]
-    .sort((a, b) => a[0].localeCompare(b[0], "zh-CN"))
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "zh-CN"))
     .map(([name, count]) => ({
       name,
       slug: slugify(name),
       count
     }));
+}
+
+function fromRoot(pathToRoot, target) {
+  if (!target) {
+    return pathToRoot;
+  }
+  return pathToRoot === "." ? `./${target}` : `${pathToRoot}/${target}`;
 }
 
 function postCard(post, pathToRoot) {
@@ -247,7 +255,7 @@ function postCard(post, pathToRoot) {
     )}" data-tags="${escapeHtml(post.tags.join(" "))}">
       <div class="post-card__meta">
         <time datetime="${escapeHtml(post.date)}">${escapeHtml(post.displayDate)}</time>
-        <span>${post.readingTime} 分钟</span>
+        <span>${post.readingTime} 分钟阅读</span>
       </div>
       <h3><a href="${fromRoot(pathToRoot, `posts/${post.slug}/`)}">${escapeHtml(post.title)}</a></h3>
       <p>${escapeHtml(post.summary)}</p>
@@ -265,15 +273,43 @@ function postCard(post, pathToRoot) {
   `;
 }
 
-function pageShell({
-  config,
-  title,
-  description,
-  pathToRoot,
-  bodyClass = "",
-  route = "",
-  content
-}) {
+function compactPostLink(post, pathToRoot) {
+  return `
+    <a class="compact-post" href="${fromRoot(pathToRoot, `posts/${post.slug}/`)}">
+      <span class="compact-post__date">${escapeHtml(post.displayDate)}</span>
+      <strong>${escapeHtml(post.title)}</strong>
+      <span class="compact-post__summary">${escapeHtml(post.summary)}</span>
+    </a>
+  `;
+}
+
+function featurePost(post, pathToRoot) {
+  return `
+    <article class="feature-post">
+      <div class="feature-post__meta">
+        <span class="eyebrow eyebrow--accent">精选文章</span>
+        <time datetime="${escapeHtml(post.date)}">${escapeHtml(post.displayDate)}</time>
+      </div>
+      <h2><a href="${fromRoot(pathToRoot, `posts/${post.slug}/`)}">${escapeHtml(post.title)}</a></h2>
+      <p>${escapeHtml(post.summary)}</p>
+      <div class="feature-post__footer">
+        <div class="chip-row">
+          ${post.tags
+            .map(
+              (tag) =>
+                `<a class="chip" href="${fromRoot(pathToRoot, `tags/${slugify(tag)}/`)}">${escapeHtml(
+                  tag
+                )}</a>`
+            )
+            .join("")}
+        </div>
+        <span class="feature-post__reading">${post.readingTime} 分钟阅读</span>
+      </div>
+    </article>
+  `;
+}
+
+function pageShell({ config, title, description, pathToRoot, route = "", bodyClass = "", content }) {
   const canonical =
     config.siteUrl && !config.siteUrl.includes("example.com")
       ? `${config.siteUrl.replace(/\/$/, "")}/${route}`.replace(/\/+$/, "/")
@@ -286,8 +322,8 @@ function pageShell({
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${escapeHtml(title)}</title>
     <meta name="description" content="${escapeHtml(description)}" />
-    <meta name="theme-color" content="#0c1b2a" />
-    <meta name="generator" content="Signal Stack Static Builder" />
+    <meta name="theme-color" content="#f7faf8" />
+    <meta name="generator" content="Cecelia Engineer Notebook" />
     ${canonical ? `<link rel="canonical" href="${escapeHtml(canonical)}" />` : ""}
     <meta property="og:title" content="${escapeHtml(title)}" />
     <meta property="og:description" content="${escapeHtml(description)}" />
@@ -299,26 +335,27 @@ function pageShell({
     <link rel="icon" href="${fromRoot(pathToRoot, "assets/favicon.svg")}" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <link rel="stylesheet" href="${fromRoot(pathToRoot, "assets/style.css")}" />
   </head>
   <body class="${escapeHtml(bodyClass)}">
-    <div class="site-bg"></div>
+    <div class="site-noise" aria-hidden="true"></div>
     <header class="site-header">
-      <div class="shell">
+      <div class="shell site-header__inner">
         <a class="brand" href="${fromRoot(pathToRoot, "index.html")}">
-          <span class="brand__mark">S</span>
-          <span>
+          <span class="brand__mark">C</span>
+          <span class="brand__copy">
             <strong>${escapeHtml(config.title)}</strong>
-            <small>Tech notes and working drafts</small>
+            <small>${escapeHtml(config.tagline || DEFAULT_CONFIG.tagline)}</small>
           </span>
         </a>
         <nav class="nav">
           <a href="${fromRoot(pathToRoot, "index.html")}">首页</a>
-          <a href="${fromRoot(pathToRoot, "tags/")}">标签</a>
+          <a href="${fromRoot(pathToRoot, "tags/")}">主题</a>
           <a href="${fromRoot(pathToRoot, "archive/")}">归档</a>
           <a href="${fromRoot(pathToRoot, "feed.xml")}">RSS</a>
+          <a href="${fromRoot(pathToRoot, "admin/")}">后台</a>
         </nav>
       </div>
     </header>
@@ -329,8 +366,8 @@ function pageShell({
           <strong>${escapeHtml(config.title)}</strong>
           <p>${escapeHtml(config.description)}</p>
         </div>
-        <div>
-          <p>作者：${escapeHtml(config.author)}</p>
+        <div class="site-footer__meta">
+          <p>${escapeHtml(config.author)}</p>
           <p><a href="mailto:${escapeHtml(config.email)}">${escapeHtml(config.email)}</a></p>
         </div>
       </div>
@@ -349,13 +386,6 @@ function pageShell({
     <script type="module" src="${fromRoot(pathToRoot, "assets/app.js")}"></script>
   </body>
 </html>`;
-}
-
-function fromRoot(pathToRoot, target) {
-  if (!target) {
-    return pathToRoot;
-  }
-  return pathToRoot === "." ? `./${target}` : `${pathToRoot}/${target}`;
 }
 
 function archiveGroups(posts) {
@@ -423,8 +453,9 @@ async function loadPosts() {
           .split(",")
           .map((item) => item.trim())
           .filter(Boolean);
+
     const paragraphText = collectParagraphText(rendered.tokens);
-    const summary = truncateText(String(data.summary || paragraphText || ""), 120);
+    const summary = truncateText(String(data.summary || paragraphText || ""), 128);
     const rawText = stripHtml(rendered.html);
     const readingTime = Math.max(1, Math.ceil(countReadingUnits(rawText) / 260));
 
@@ -448,8 +479,10 @@ async function loadPosts() {
 }
 
 function renderHomePage(config, posts, tags) {
-  const featuredPosts = posts.filter((post) => post.featured);
-  const primaryPosts = featuredPosts.length >= 3 ? featuredPosts : posts.slice(0, 6);
+  const heroPosts = posts.filter((post) => post.featured);
+  const leadPost = heroPosts[0] || posts[0];
+  const sidePosts = heroPosts.slice(1, 4).length ? heroPosts.slice(1, 4) : posts.slice(1, 4);
+  const searchablePosts = posts.slice(0, 9);
   const activeTags = tags.slice(0, 10);
 
   return pageShell({
@@ -461,53 +494,78 @@ function renderHomePage(config, posts, tags) {
     bodyClass: "home-page",
     content: `
       <section class="hero shell">
-        <div class="hero__copy">
-          <span class="eyebrow">Markdown Driven Knowledge Base</span>
+        <div class="hero__intro-panel">
+          <div class="hero__eyebrow-row">
+            <span class="eyebrow">技术笔记</span>
+            <span class="hero__status">持续更新</span>
+          </div>
           <h1>${escapeHtml(config.heroTitle)}</h1>
           <p class="hero__intro">${escapeHtml(config.heroIntro)}</p>
           <div class="hero__actions">
-            <a class="button button--primary" href="./archive/">查看全部文章</a>
-            <a class="button button--ghost" href="./tags/">按标签浏览</a>
+            <a class="button button--primary" href="./archive/">查看文章</a>
+            <a class="button button--ghost" href="./admin/">写新文章</a>
           </div>
+          <dl class="hero__metrics">
+            <div>
+              <dt>文章</dt>
+              <dd>${posts.length}</dd>
+            </div>
+            <div>
+              <dt>主题</dt>
+              <dd>${tags.length}</dd>
+            </div>
+            <div>
+              <dt>写作方式</dt>
+              <dd>Markdown 写作</dd>
+            </div>
+          </dl>
         </div>
-        <aside class="hero__panel">
-          <div class="status-card">
-            <span class="status-card__label">Now</span>
+        <aside class="hero__sidebar">
+          <div class="profile-card">
+            <span class="eyebrow eyebrow--accent">当前记录</span>
+            <h2>${escapeHtml(config.author)}</h2>
             <p>${escapeHtml(config.now)}</p>
+            <div class="profile-card__tags">
+              <span>前端工程</span>
+              <span>工具链</span>
+              <span>效率工作流</span>
+            </div>
           </div>
-          <div class="metric-grid">
-            <div>
-              <strong>${posts.length}</strong>
-              <span>篇笔记</span>
-            </div>
-            <div>
-              <strong>${tags.length}</strong>
-              <span>个主题</span>
-            </div>
-            <div>
-              <strong>RSS</strong>
-              <span>可订阅</span>
-            </div>
-            <div>
-              <strong>Static</strong>
-              <span>部署简单</span>
-            </div>
+          <div class="manifest-card">
+            <span class="eyebrow eyebrow--accent">写作方式</span>
+            <p>偏系统、偏写作、偏长期积累。这个博客不是展示面板，而是一个持续生产知识资产的工作台。</p>
           </div>
         </aside>
       </section>
 
+      ${
+        leadPost
+          ? `
+      <section class="shell spotlight">
+        ${featurePost(leadPost, ".")}
+        <div class="spotlight__rail">
+          <div class="spotlight__heading">
+            <span class="eyebrow">最近更新</span>
+            <h2>最近在写什么</h2>
+          </div>
+          ${sidePosts.map((post) => compactPostLink(post, ".")).join("")}
+        </div>
+      </section>`
+          : ""
+      }
+
       <section class="shell section">
         <div class="section__heading">
           <div>
-            <span class="eyebrow">Recent Writing</span>
-            <h2>最近整理的内容</h2>
+            <span class="eyebrow">文章库</span>
+            <h2>文章与笔记库</h2>
           </div>
-          <p>适合拿来放技术总结、踩坑记录、复盘文档和实验性草稿。</p>
+          <p>这里更像一间整理好的研究室。你可以按主题筛、按关键词找，也可以把它当成自己的技术档案馆。</p>
         </div>
         <div class="filter-bar">
           <label class="search-box">
-            <span>搜索</span>
-            <input type="search" data-search-input placeholder="试试搜 React、CLI、工程化..." />
+            <span>搜索笔记</span>
+            <input type="search" data-search-input placeholder="试试搜索 React、CLI、workflow、CSS..." />
           </label>
           <div class="filter-tags">
             <button class="chip chip--button is-active" type="button" data-filter-tag="">全部</button>
@@ -521,19 +579,19 @@ function renderHomePage(config, posts, tags) {
               .join("")}
           </div>
         </div>
-        <p class="filter-result" data-filter-result>显示 ${primaryPosts.length} 篇内容</p>
+        <p class="filter-result" data-filter-result>显示 ${searchablePosts.length} 篇内容</p>
         <div class="post-grid" data-post-grid>
-          ${primaryPosts.map((post) => postCard(post, ".")).join("")}
+          ${searchablePosts.map((post) => postCard(post, ".")).join("")}
         </div>
       </section>
 
-      <section class="shell section topics">
+      <section class="shell section">
         <div class="section__heading">
           <div>
-            <span class="eyebrow">Topic Map</span>
-            <h2>你可以怎么组织笔记</h2>
+            <span class="eyebrow">主题分布</span>
+            <h2>长期主题分布</h2>
           </div>
-          <p>标签页适合长期积累知识库，文章页适合单篇深挖。</p>
+          <p>把文章当作主题积累而不是零散更新，你会更快形成自己的写作脉络和技术视角。</p>
         </div>
         <div class="topic-grid">
           ${tags
@@ -541,7 +599,7 @@ function renderHomePage(config, posts, tags) {
               (tag) => `
                 <a class="topic-card" href="./tags/${tag.slug}/">
                   <strong>${escapeHtml(tag.name)}</strong>
-                  <span>${tag.count} 篇</span>
+                  <span>${tag.count} 篇文章</span>
                 </a>
               `
             )
@@ -557,15 +615,15 @@ function renderArchivePage(config, posts) {
 
   return pageShell({
     config,
-    title: `归档 | ${config.title}`,
+    title: `Archive | ${config.title}`,
     description: `按时间浏览 ${config.title} 的全部文章`,
     pathToRoot: "..",
     route: "archive/",
     content: `
       <section class="shell page-head">
         <span class="eyebrow">Archive</span>
-        <h1>全部归档</h1>
-        <p>按年份回看文章和笔记，适合整理成长线项目的演进记录。</p>
+        <h1>按时间浏览全部文章</h1>
+        <p>适合回看某一阶段的持续输出，也适合整理长期主题的演进过程。</p>
       </section>
       <section class="shell section">
         <div class="archive-list">
@@ -602,15 +660,15 @@ function renderArchivePage(config, posts) {
 function renderTagsIndexPage(config, tags) {
   return pageShell({
     config,
-    title: `标签 | ${config.title}`,
-    description: `浏览 ${config.title} 的全部标签`,
+    title: `Topics | ${config.title}`,
+    description: `浏览 ${config.title} 的全部主题`,
     pathToRoot: "..",
     route: "tags/",
     content: `
       <section class="shell page-head">
-        <span class="eyebrow">Tags</span>
-        <h1>按主题浏览</h1>
-        <p>把 React、后端、工程化、效率工具这类主题拆开管理，查找会轻松很多。</p>
+        <span class="eyebrow">Topics</span>
+        <h1>从主题而不是时间看内容</h1>
+        <p>如果你把博客当作知识系统，主题页往往比首页更有价值。</p>
       </section>
       <section class="shell section">
         <div class="topic-grid">
@@ -639,9 +697,9 @@ function renderTagPage(config, tag, posts) {
     route: `tags/${tag.slug}/`,
     content: `
       <section class="shell page-head">
-        <span class="eyebrow">Tag View</span>
+        <span class="eyebrow">Topic view</span>
         <h1>${escapeHtml(tag.name)}</h1>
-        <p>共 ${posts.length} 篇内容，适合把同一类知识持续累计在一个主题下。</p>
+        <p>共 ${posts.length} 篇内容。主题页适合沉淀长期写作，不只是短期更新。</p>
       </section>
       <section class="shell section">
         <div class="post-grid">
@@ -664,13 +722,13 @@ function renderPostPage(config, post, previousPost, nextPost) {
       <section class="shell article-shell">
         <article class="article">
           <div class="article__header">
-            <a class="back-link" href="../../archive/">← 返回归档</a>
-            <span class="eyebrow">Post</span>
+            <a class="back-link" href="../../archive/">Back to archive</a>
+            <span class="eyebrow">Essay</span>
             <h1>${escapeHtml(post.title)}</h1>
             <p>${escapeHtml(post.summary)}</p>
             <div class="article__meta">
               <time datetime="${escapeHtml(post.date)}">${escapeHtml(post.displayDate)}</time>
-              <span>${post.readingTime} 分钟阅读</span>
+              <span>${post.readingTime} min read</span>
             </div>
             <div class="chip-row">
               ${post.tags
@@ -703,7 +761,7 @@ function renderPostPage(config, post, previousPost, nextPost) {
         </article>
         <aside class="article-aside">
           <div class="aside-card">
-            <span class="eyebrow">On This Page</span>
+            <span class="eyebrow eyebrow--accent">On this page</span>
             <ul class="toc">
               ${
                 post.headings.length
@@ -716,7 +774,7 @@ function renderPostPage(config, post, previousPost, nextPost) {
                         `
                       )
                       .join("")
-                  : "<li class=\"toc__item\">这篇文章还没有目录结构。</li>"
+                  : '<li class="toc__item">这篇文章目前没有目录。</li>'
               }
             </ul>
           </div>
@@ -729,15 +787,15 @@ function renderPostPage(config, post, previousPost, nextPost) {
 function render404Page(config) {
   return pageShell({
     config,
-    title: `未找到页面 | ${config.title}`,
+    title: `Not found | ${config.title}`,
     description: "页面不存在",
     pathToRoot: ".",
     content: `
       <section class="shell page-head page-head--center">
         <span class="eyebrow">404</span>
-        <h1>这页还没写好</h1>
-        <p>链接可能已经变动，或者这篇笔记还没发布。</p>
-        <a class="button button--primary" href="./index.html">回到首页</a>
+        <h1>这页没有被发布</h1>
+        <p>可能链接已经变化，也可能这篇内容还在草稿阶段。</p>
+        <a class="button button--primary" href="./index.html">Return home</a>
       </section>
     `
   });

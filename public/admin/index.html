@@ -8,8 +8,8 @@
     <style>
       body {
         margin: 0;
-        background: #0c1b2a;
-        color: #eff7f5;
+        background: #f7faf8;
+        color: #17211b;
         font-family: "Noto Sans SC", "PingFang SC", sans-serif;
       }
 
@@ -30,7 +30,7 @@
         margin: 0;
         max-width: 42rem;
         line-height: 1.7;
-        color: rgba(239, 247, 245, 0.74);
+        color: #5f6f65;
       }
     </style>
   </head>
@@ -46,5 +46,10 @@
     </div>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      if (window.CMS) {
+        window.CMS.registerPreviewStyle("/assets/style.css");
+      }
+    </script>
   </body>
 </html>
